@@ -2,18 +2,38 @@ window.onload = init;
 function init() {
   const map = new ol.Map({
     view: new ol.View({
-      center: [9836226.743377415, 2581030.8139030603],
-      zoom: 13,
+      center: [0, 0],
+      zoom: 2,
     }),
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM(),
-      }),
-    ],
     target: "js-map",
   });
 
-  map.on("click", function (e) {
-    console.log(e.coordinate);
+  const openStreetMap = new ol.layer.Tile({
+    source: new ol.source.OSM(),
+    visible: false,
+    title: "OpenStreetMap",
   });
+
+  const openStreetHumanitarian = new ol.layer.Tile({
+    source: new ol.source.OSM({
+      url: "https://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+    }),
+    visible: false,
+    title: "OpenStreetMapHumanitarian",
+  });
+
+  const stamenTerrain = new ol.layer.Tile({
+    source: new ol.source.XYZ({
+      url: "http://tile.stamen.com/terrain/{z}/{x}/{y}.png",
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>',
+      visible: false,
+      title: "Stamen Terrain",
+    }),
+  });
+
+  const mapLayers = new ol.layer.Group({
+    layers: [openStreetMap, openStreetHumanitarian, stamenTerrain],
+  });
+
+  map.addLayer(mapLayers);
 }
