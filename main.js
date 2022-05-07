@@ -25,15 +25,20 @@ function init() {
   const stamenTerrain = new ol.layer.Tile({
     source: new ol.source.XYZ({
       url: "http://tile.stamen.com/terrain/{z}/{x}/{y}.png",
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>',
+      attribution:
+        '<a id="home-link" target="_top" href="http://maps.stamen.com/">Map tiles</a> by <a target="_top" href="http://stamen.com">Stamen Design</a>, under <a target="_top" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data © <a target="_top" href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
       visible: false,
       title: "Stamen Terrain",
     }),
   });
 
   const mapLayers = new ol.layer.Group({
-    layers: [openStreetMap, openStreetHumanitarian, stamenTerrain],
+    layers: [openStreetMap, openStreetHumanitarian],
   });
 
   map.addLayer(mapLayers);
+
+  map.on("click", (event) => {
+    console.log(event.coordinate);
+  });
 }
