@@ -6,11 +6,16 @@ function init() {
       zoom: 2,
     }),
     target: "js-map",
+    controls: [
+      new ol.control.ScaleLine({
+        units: "degrees",
+      }),
+    ],
   });
 
   const openStreetMap = new ol.layer.Tile({
     source: new ol.source.OSM(),
-    visible: false,
+    visible: true,
     title: "OpenStreetMap",
   });
 
